@@ -49,8 +49,8 @@ const createExpense = async () => {
     try {
         const newExpense = new Expense(expenseData) 
         const saveExpense = await newExpense.save()
-        // return saveExnese
-        console.log("New Expense:", saveExpense)
+        return saveExpense
+        // console.log("New Expense:", saveExpense)
     } catch (error) {
         console.log("Error:", error)
     }
@@ -71,8 +71,8 @@ const createIncome = async () => {
     try {
         const newIncome = new Income(incomeData)
         const saveIncome = await newIncome.save()
-        // return saveIncome
-        console.log("Income data:", saveIncome)
+        return saveIncome
+        // console.log("Income data:", saveIncome)
     } catch (error) {
         throw error
     }
@@ -92,8 +92,8 @@ const createSaving = async () => {
     try {
         const newSaving = new Saving(savingData)
         const saveSaving = await newSaving.save()
-        // return saveSaving
-        console.log("New saving:",saveSaving)
+        return saveSaving
+        // console.log("New saving:",saveSaving)
     } catch (error) {
         throw error
     }
