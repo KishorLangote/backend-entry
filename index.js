@@ -171,7 +171,7 @@ app.post("/add-expense", async (req, res) => {
     const { description, amount, entryType } = req.body
 
     if(!description || !amount || !entryType) {
-        return res.status(400).json({ erro: "Description, amount are required."})
+        return res.status(400).json({ error: "Description, amount are required."})
     }
 
     try {
