@@ -186,8 +186,8 @@ app.post("/add-expense", async (req, res) => {
 app.post("/add-income", async (req, res) => {
     const { description, amount, entryType } = req.body;
 
-    if(!description || !amount || entryType) {
-        return res.status(400).json({ error: "Description, amount and entryType are requried."})
+    if(!description || !amount || !entryType) {
+        return res.status(400).json({ error: "Description, amount are requried."})
     }
 
     try {
