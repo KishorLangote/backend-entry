@@ -155,18 +155,6 @@ app.get("/expenses/:expenseType", async (req, res) => {
     }
 })
 
-// get the income data..
-
-app.get("/incomes", async (req, res) => {
-    try {
-        const incomeData = await Income.find()
-        res.json(incomeData)
-    } catch (error) {
-        console.log("Error fetching income data.", error)
-        res.status(500).json({error: "Error fetching income data."})
-    }
-})
-
 app.post("/add-expense", async (req, res) => {
     const { description, amount, entryType } = req.body
 
@@ -182,6 +170,20 @@ app.post("/add-expense", async (req, res) => {
         res.status(500).json({error: "Error adding entry"})
     }
 })
+
+
+// get the income data..
+
+app.get("/incomes", async (req, res) => {
+    try {
+        const incomeData = await Income.find()
+        res.json(incomeData)
+    } catch (error) {
+        console.log("Error fetching income data.", error)
+        res.status(500).json({error: "Error fetching income data."})
+    }
+})
+
 
 app.post("/add-income", async (req, res) => {
     const { description, amount, entryType } = req.body;
