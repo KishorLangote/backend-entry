@@ -29,11 +29,11 @@ initializeDatabase() // this means calling the databse..
 //     entryType: "income"
 // }
 
-const expenseData = {
-    description: "freelance",
-    amount: 15000,
-    entryType: "expense"
-}
+// const expenseData = {
+//     description: "freelance",
+//     amount: 15000,
+//     entryType: "expense"
+// }
 
 
 // routes
@@ -44,6 +44,12 @@ app.get("/", (req, res) => {
 
 
 // create expenses..
+
+const expenseData = {
+    description: "work from office", 
+    amount: 1500,
+    entryType: "expense"
+}
 
 const createExpense = async () => {
     try {
@@ -113,11 +119,24 @@ app.get("/savings", async (req, res) => {
 })
 
 
+// get the expense data..
+
+app.get("/expenses", async (req, res) => {
+    try {
+        const expenseData = await Expense.find()
+        res.json(expenseData)
+    } catch(error) {
+        console.log("Error fetching expense data.", error)
+        res.status(500).json({error: "Error fetching expense data."})
+    }
+})
+
 // get the all data by expenses entry Type ...
 
 async function readAllEntrytypeByExpense(expenseType) {
     try {
         const entryTypeByExpense = await Expense.find({ entryType: "expense" })
+
         return entryTypeByExpense
     } catch (error) {
         throw error
@@ -157,10 +176,26 @@ app.post("/add-expense", async (req, res) => {
 
     try {
         await Expense.create({ description, amount, entryType })
-        res.json({ success: true, data: { description, amount, entryType }})
+        res.status(200).json({ success: true, data: { description, amount, entryType }})
     } catch (error) {
         console.log("Error adding entry:", error)
         res.status(500).json({error: "Error adding entry"})
+    }
+})
+
+app.post("/add-income", async (req, res) => {
+    const { description, amount, entryType } = req.body;
+
+    if(!description || !amount || entryType) {
+        return res.status(400).json({ error: "Description, amount and entryType are requried."})
+    }
+
+    try {
+        await Income.create({description, amount, entryType}) 
+        res.status(200).json({ success: true, data: { description, amount, entryType}})
+    } catch (error) {
+        console.log("Error adding entry:", error)
+        res.status(500).json({ error: "Error adding entry."})
     }
 })
 
