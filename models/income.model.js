@@ -10,6 +10,12 @@ const incomeSchema = new mongoose.Schema({
         type: Number, 
         required: true,
     },
+
+    entryType: {
+        type: String,
+        enum: ["income", "expense"],
+        required: true,
+    },
     
     reletedExpenses: { type: mongoose.Schema.Types.ObjectId, ref: "Expense"}
 }, // expense linked to the income..

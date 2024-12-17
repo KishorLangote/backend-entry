@@ -68,8 +68,8 @@ const createExpense = async () => {
 // create incomes..
 
 const incomeData = {
-    description: "work from home",
-    amount: 800,
+    description: "travel",
+    amount: 8060,
     entryType: "income"
 }
 
