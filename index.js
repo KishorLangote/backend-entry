@@ -131,6 +131,24 @@ app.get("/expenses", async (req, res) => {
     }
 })
 
+
+app.post("/add-expense", async (req, res) => {
+    const { description, amount, entryType } = req.body
+
+    if(!description || !amount || !entryType) {
+        return res.status(400).json({ error: "Description, amount are required."})
+    }
+
+    try {
+        await Expense.create({ description, amount, entryType })
+        res.status(200).json({ success: true, data: { description, amount, entryType }})
+    } catch (error) {
+        console.log("Error adding entry:", error)
+        res.status(500).json({error: "Error adding entry"})
+    }
+})
+
+
 // get the all data by expenses entry Type ...
 
 async function readAllEntrytypeByExpense(expenseType) {
@@ -155,21 +173,6 @@ app.get("/expenses/:expenseType", async (req, res) => {
     }
 })
 
-app.post("/add-expense", async (req, res) => {
-    const { description, amount, entryType } = req.body
-
-    if(!description || !amount || !entryType) {
-        return res.status(400).json({ error: "Description, amount are required."})
-    }
-
-    try {
-        await Expense.create({ description, amount, entryType })
-        res.status(200).json({ success: true, data: { description, amount, entryType }})
-    } catch (error) {
-        console.log("Error adding entry:", error)
-        res.status(500).json({error: "Error adding entry"})
-    }
-})
 
 
 // get the income data..
